@@ -12,14 +12,14 @@ const FlagPromotion uint16 = 32768 // 0b1000000000000000
 const FlagCapture uint16 = 16384 // 0b0100000000000000
 // FlagSpecial1 special1 bit
 const FlagSpecial1 uint16 = 8192 // 0b0010000000000000
-// FlagSpecial2 special2 bit
-const FlagSpecial2 uint16 = 4096 // 0b0001000000000000
+// FlagSpecial0 special2 bit
+const FlagSpecial0 uint16 = 4096 // 0b0001000000000000
 // RangeFlag bit range of all bit positions used for flags
 const RangeFlag uint16 = 61440 // 0b1111000000000000
-// FromFlag bit range which holds the From position as a uint8 position
-const FromFlag uint16 = 4032 // 0b0000111111000000
-// ToFlag bit range which holds the To position as a uint8 position
-const ToFlag uint16 = 63 // 0b0000000000111111
+// RangeFrom bit range which holds the From position as a uint8 position
+const RangeFrom uint16 = 4032 // 0b0000111111000000
+// RangeTo bit range which holds the To position as a uint8 position
+const RangeTo uint16 = 63 // 0b0000000000111111
 
 // piece index
 
