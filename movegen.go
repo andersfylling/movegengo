@@ -6,8 +6,8 @@ type MoveGen struct {
 	index uint
 }
 
-// New initiate a new MoveGen instance
-func New() *MoveGen {
+// NewMoveGen initiate a new MoveGen instance
+func NewMoveGen() *MoveGen {
 	return &MoveGen{index: 0}
 }
 
