@@ -215,21 +215,23 @@ func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
  * @return uint64 with positions reached.
  */
 func (mg *MoveGen) generatePawnRightAttack(pawns uint64) uint64 {
-	area := uint64(0xfefefefefefefefe)
+	area := uint64(0xfefefefefefe00)
 	var attacks uint64 // TODO: en passant
 	if mg.isWhite() {
 		attacks = (pawns & area) << 7
+		attacks &= mg.state.colours[0]
 	} else {
 		attacks = (pawns & area) >> 9
+		attacks &= mg.state.colours[1]
 	}
 	cache := attacks
 
 	// promotions
 	var attackDirection int
 	if mg.isWhite() {
-		attackDirection = 7
+		attackDirection = -7
 	} else {
-		attackDirection = -9
+		attackDirection = 9
 	}
 	attacks ^= mg.generatePromotions(attackDirection, attacks)
 
