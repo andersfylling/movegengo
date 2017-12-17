@@ -49,13 +49,13 @@ func (mg *MoveGen) SetMove(move uint16, index int) {
 }
 
 // GetMove returns the move for a given index
-func (mg *MoveGen) GetMove(index int) uint16 {
+func (mg *MoveGen) GetMove(index uint) uint16 {
 	return mg.moves[index]
 }
 
 // CreateIterator Iterator pattern
 func (mg *MoveGen) CreateIterator() *MoveGenIterator {
-	return NewMoveGenIterator(0, len(mg.moves), mg)
+	return NewMoveGenIterator(0, mg.index, mg)
 }
 
 func (mg *MoveGen) isWhite() bool {

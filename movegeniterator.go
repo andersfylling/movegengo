@@ -2,13 +2,13 @@ package cmgg
 
 // MoveGenIterator chess move generator
 type MoveGenIterator struct {
-	index int
-	size  int
+	index uint
+	size  uint
 	mg    *MoveGen
 }
 
 // NewMoveGenIterator Creates an iterator for MoveGen
-func NewMoveGenIterator(i, size int, mg *MoveGen) *MoveGenIterator {
+func NewMoveGenIterator(i, size uint, mg *MoveGen) *MoveGenIterator {
 	return &MoveGenIterator{index: i, size: size, mg: mg}
 }
 
@@ -16,12 +16,12 @@ func NewMoveGenIterator(i, size int, mg *MoveGen) *MoveGenIterator {
 // Begin(), End(), Next(), GetMove(uint8)
 
 // Begin [iterator] return the first element
-func (it *MoveGenIterator) Begin() int {
+func (it *MoveGenIterator) Begin() uint {
 	return 0
 }
 
 // End [iterator] return the element after the last
-func (it *MoveGenIterator) End() int {
+func (it *MoveGenIterator) End() uint {
 	return it.size
 }
 
@@ -31,14 +31,14 @@ func (it *MoveGenIterator) Good() bool {
 }
 
 // Next [iterator] get the next index
-func (it *MoveGenIterator) Next() int {
+func (it *MoveGenIterator) Next() uint {
 	it.index++
 
 	return it.index
 }
 
 // GetIndex returns the current iterator index (progress)
-func (it *MoveGenIterator) GetIndex() int {
+func (it *MoveGenIterator) GetIndex() uint {
 	return it.index
 }
 

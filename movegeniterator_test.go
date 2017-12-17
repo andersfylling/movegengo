@@ -13,12 +13,8 @@ func u16tos(i uint16) string {
 }
 
 func TestMoveGenIterator(t *testing.T) {
-	mg := New()
-	mg.AddMove(435)
-	mg.AddMove(469)
-	mg.AddMove(465)
-	mg.AddMove(412)
-	mg.AddMove(432)
+	mg := NewMoveGen()
+	mg.GenerateMoves()
 
 	it := mg.CreateIterator()
 	if it.Begin() != 0 {
