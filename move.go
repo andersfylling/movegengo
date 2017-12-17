@@ -1,5 +1,7 @@
 package cmgg
 
+import "strconv"
+
 // Move is used to hold a move and manipulate or extract data from it
 type Move struct {
 	move uint16
@@ -135,4 +137,7 @@ func (m *Move) Equal(a *Move) bool {
 }
 func (m *Move) Not(a *Move) bool {
 	return m.move != a.GetMove()
+}
+func (m *Move) ToStr() string {
+	return "From: " + string(strconv.Itoa(int(m.GetFrom()))) + ", To: " + string(strconv.Itoa(int(m.GetTo())))
 }
