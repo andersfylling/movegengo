@@ -74,6 +74,7 @@ func (mg *MoveGen) GenerateMoves() {
 	}
 
 	mg.GeneratePawnMoves()
+	mg.GenerateKnightMoves()
 }
 
 func (mg *MoveGen) GeneratePawnMoves() uint64 {
@@ -278,4 +279,58 @@ func (mg *MoveGen) generatePromotions(from int, pawns uint64) uint64 {
 	}
 
 	return pawns & 0xff000000000000ff
+}
+
+func (mg *MoveGen) generateKnightBoard(index int) uint64 {
+
+	//attacks := uint64(0x28440044280000)
+	//var result uint64
+
+	//if (x & 0x3c3c3c3c0000) > 0 {
+	//	origin := 45
+	//	offset := uint16(origin - LSB(x))
+
+	//	result = attacks >> offset
+	//} else {
+	//mask := uint64(0x7c7c7c7c7c0000)
+	//origin := uint64(0x1000000000)
+	//}
+
+	return KnightMoves[index]
+}
+
+func (mg *MoveGen) GenerateKnightMoves() uint64 {
+	knights := mg.state.pieces[mg.colour*6+2]
+	attacks := uint64(0)
+	for i := LSB(knights); i != 64; i = NLSB(&knights, i) {
+		moves := mg.generateKnightBoard(i)
+		attacks |= moves
+
+		var moveAttacks uint64
+		if mg.isWhite() {
+			moveAttacks = moves & mg.state.colours[0]
+		} else {
+			moveAttacks = moves & mg.state.colours[1]
+		}
+		moves ^= moveAttacks
+		moves &= ^mg.state.colours[mg.colour]
+
+		mg.mover.SetFrom(uint16(i))
+		mg.mover.SetFlags(0) // quiet move
+		for j := LSB(moves); j != 64; j = NLSB(&moves, j) {
+			mg.mover.SetTo(uint16(j))
+			mg.moves[mg.index] = mg.mover.GetMove()
+			mg.index++
+		}
+
+		mg.mover.SetFlags(8) // captures
+		for j := LSB(moveAttacks); j != 64; j = NLSB(&moveAttacks, j) {
+			mg.mover.SetTo(uint16(j))
+			mg.moves[mg.index] = mg.mover.GetMove()
+			mg.index++
+		}
+
+	}
+
+	return attacks
 }

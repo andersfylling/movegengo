@@ -145,3 +145,11 @@ func TestPawnPromotion(t *testing.T) {
 		}
 	}
 }
+
+func TestKnightMove(t *testing.T) {
+	//movegen := NewMoveGen()
+
+	//if movegen.generateKnightMove(0x1000000000) != 0x28440044280000 {
+	//	t.Error("KnightMove error: attacks for 0x1000000000 is wrong.")
+	//}
+}
