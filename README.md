@@ -8,6 +8,7 @@ This package also includes a Move "class" for encoding and decoding moves and mo
 package main
 
 import "github.com/andersfylling/cmgg"
+import "fmt"
 
 func main() {
   // For a move generator with a default game state use:
