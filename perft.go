@@ -1,0 +1,5 @@
+package cmgg
+
+func Perft() {
+
+}
