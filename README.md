@@ -30,5 +30,11 @@ Currently the goal is to reach a working move generator. I'll then record a bunc
 
 The features ment to be accessed by other developers, mainly, are placed in the root folder. And both package and file by feature design is used.
 
+## Bitboards ##
+I know there are different bitboard version, as in the order of the chess board squares. But this model aims at 0 == F1 and 63 == A8, from the white perspective. I do want the possibility to swap between bitboard layouts later, but as I'm worried about the performance hit of not having a precompiler, implementations for different bitboard layouts will most likely gain their own repositories (if this ever comes that far).
+
 ## Contributing ##
 In your PR (Pull Request) explain what you have added/implemented or changed. If it affects performance, or you are asked to provide perfomance information, do a control test from the original branch and your new branch using perft & benchmarks. Any new feature implemented <b>must</b> have unit tests, and possibly benchmarks if required.
+
+## Requests and bugs ##
+I'm flexible when it comes to new ideas. I even want to try using a 32bit encoded move instead as the newer CPU's from AMD has way more L1 cache. But that's for a later consideration. Use the issue tracker for everything; questions, bugs, requests, concerns, etc.
