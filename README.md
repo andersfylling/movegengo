@@ -24,3 +24,11 @@ func main() {
   }
 }
 ```
+
+## Architecture ##
+Currently the goal is to reach a working move generator. I'll then record a bunch of input-output data, and use that as a control for optimizations later on. Right now the idea is to create 16bit encoded moves and only produce legal moves from the movegenerator. Not generating every psuedo move and validate them using a function.
+
+The features ment to be accessed by other developers, mainly, are placed in the root folder. And both package and file by feature design is used.
+
+## Contributing ##
+In your PR (Pull Request) explain what you have added/implemented or changed. If it affects performance, or you are asked to provide perfomance information, do a control test from the original branch and your new branch using perft & benchmarks. Any new feature implemented <b>must</b> have unit tests, and possibly benchmarks if required.
