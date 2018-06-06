@@ -7,19 +7,19 @@ This package also includes a Move "class" for encoding and decoding moves and mo
 ```go
 package main
 
-import "github.com/andersfylling/cmgg"
+import mg "github.com/chessmodule/movegengo"
 import "fmt"
 
 func main() {
   // For a move generator with a default game state use:
-  //   movegen := cmgg.NewMoveGen()
-  // If you have a populated game state (cmgg.GameState) use:
-  //   movegen := cmgg.NewMoveGenByState(gs)
-  movegen := cmgg.NewMoveGen()
+  //   movegen := mg.NewMoveGen()
+  // If you have a populated game state (mg.GameState) use:
+  //   movegen := mg.NewMoveGenByState(gs)
+  movegen := mg.NewMoveGen()
 
   movegen.GenerateMoves() // generates all the moves
   for it := movegen.CreateIterator(); it.Good(); it.Next() {
-    mover := cmgg.NewMove(it.GetMove()) //GetMove returns a uint16 encoded move
+    mover := mg.NewMove(it.GetMove()) //GetMove returns a uint16 encoded move
     fmt.Println("move: " + mover.ToStr()) // shows from and to values
   }
 }
