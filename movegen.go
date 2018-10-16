@@ -116,14 +116,17 @@ func (mg *MoveGen) generatePawnSinglePush() uint64 {
 	// remove promotion pieces
 	to ^= mg.generatePromotions(0, to)
 
+	var attackDirection int
+	if mg.isWhite() {
+		attackDirection = -8
+	} else {
+		attackDirection = 8
+	}
+
 	// single push
 	mg.mover.SetFlags(0)
 	for i := LSB(to); i != 64; i = NLSB(&to, i) {
-		if mg.isWhite() {
-			mg.mover.SetFrom(uint16(i - 8))
-		} else {
-			mg.mover.SetFrom(uint16(i + 8))
-		}
+		mg.mover.SetFrom(uint16(i + attackDirection))
 		mg.mover.SetTo(uint16(i))
 		mg.moves[mg.index] = mg.mover.GetMove()
 		mg.index++
@@ -178,10 +181,13 @@ func (mg *MoveGen) generatePawnDoublePush(pawns uint64) uint64 {
 func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
 	area := uint64(0x7f7f7f7f7f7f7f7f)
 	var attacks uint64
+	var attackDirection int
 	if mg.isWhite() {
+		attackDirection = 9 // promotions
 		attacks = (pawns & area) << 9
 		attacks &= mg.state.colours[0] // TODO: en passant
 	} else {
+		attackDirection = -7 // promotions
 		attacks = (pawns & area) >> 7
 		attacks &= mg.state.colours[1] // TODO: en passant
 	}
@@ -189,12 +195,6 @@ func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
 	cache := attacks
 
 	// promotions
-	var attackDirection int
-	if mg.isWhite() {
-		attackDirection = 9
-	} else {
-		attackDirection = -7
-	}
 	attacks ^= mg.generatePromotions(attackDirection, attacks)
 
 	mg.mover.SetFlags(4) // 0b0100, capture
@@ -218,22 +218,19 @@ func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
 func (mg *MoveGen) generatePawnRightAttack(pawns uint64) uint64 {
 	area := uint64(0xfefefefefefe00)
 	var attacks uint64 // TODO: en passant
+	var attackDirection int
 	if mg.isWhite() {
+		attackDirection = -7 // promotions
 		attacks = (pawns & area) << 7
 		attacks &= mg.state.colours[0]
 	} else {
+		attackDirection = 9 // promotions
 		attacks = (pawns & area) >> 9
 		attacks &= mg.state.colours[1]
 	}
 	cache := attacks
 
 	// promotions
-	var attackDirection int
-	if mg.isWhite() {
-		attackDirection = -7
-	} else {
-		attackDirection = 9
-	}
 	attacks ^= mg.generatePromotions(attackDirection, attacks)
 
 	// capture, 0b0100

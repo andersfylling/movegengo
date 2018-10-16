@@ -45,7 +45,14 @@ func NewGameState() *GameState {
 	}
 }
 
+func (state *GameState) BasicOutput() string {
+	//pieces := []string{"-", "q", "k", ""}
+	return ""
+}
+
 // Print represent the content as a chess board
-func (state *GameState) Print() {
-	// TODO
+func (state *GameState) PrettyOutput() string {
+	//pieces := []string{" ", "♔", "♕", "♖", "♗", "♘", "♙", "♚", "♛", "♜", "♝", "♞", "♟"}
+
+	return ""
 }
