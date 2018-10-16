@@ -1,9 +1,41 @@
-# [cmgg] Chess Move Generator in GoLang #
+# MovegenGo [![Documentation](https://godoc.org/github.com/chessmodule/movegengo?status.svg)](http://godoc.org/github.com/chessmodule/movegengo)
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
+
+## Health
+| Branch       | Build status  | Code climate | Go Report Card | Code Coverage |
+| ------------ |:-------------:|:---------------:|:-------------:|:----------------:|
+| master     | [![CircleCI](https://circleci.com/gh/chessmodule/movegengo/tree/master.svg?style=shield)](https://circleci.com/gh/chessmodule/movegengo/tree/master) | [![Maintainability](https://api.codeclimate.com/v1/badges/f28b832369e4027522e7/maintainability)](https://codeclimate.com/github/chessmodule/movegengo/maintainability) | [![Go Report Card](https://goreportcard.com/badge/github.com/chessmodule/movegengo)](https://goreportcard.com/report/github.com/chessmodule/movegengo) | [![Test Coverage](https://api.codeclimate.com/v1/badges/f28b832369e4027522e7/test_coverage)](https://codeclimate.com/github/chessmodule/movegengo/test_coverage) |
+
+## About
 This package is a chess move generator that encodes moves. It uses a hybrid of psuedo and legal moves. It has implemented state pattern (using the game state) and iterator pattern (iterating over the move list). I will be implementing a array pointer with an range as argument to directly store the moves into a stack/game tree for a speed improvement.
 
 This package also includes a Move "class" for encoding and decoding moves and move tables for certain pieces like knights.
 
-## Usage ##
+## Bitboard layout
+```
+
+# Chess board layout
+
+63 62 61 60 59 58 57 56  | 8
+55 54 53 52 51 50 49 48  | 7
+47 46 45 44 43 42 41 40  | 6
+39 38 37 36 35 34 33 32  | 5
+31 30 29 28 27 26 25 24  | 4
+23 22 21 20 19 18 17 16  | 3
+15 14 13 12 11 10 09 08  | 2
+07 06 05 04 03 02 01 00  | 1
+_________________________|
+ A  B  C  D  E  F  G  H
+
+# uint64 layout by index
+A8 B8 C8 D8 ... E1 F1 G1 H1
+63 62 61 60 ... 03 02 01 00
+
+```
+The position H1 is found at `bitboard & 0x1`, while A8 is found at `bitboard & (0x1<<63)`.
+
+## Quick start using the iterator
 ```go
 package main
 
@@ -24,17 +56,3 @@ func main() {
   }
 }
 ```
-
-## Architecture ##
-Currently the goal is to reach a working move generator. I'll then record a bunch of input-output data, and use that as a control for optimizations later on. Right now the idea is to create 16bit encoded moves and only produce legal moves from the movegenerator. Not generating every psuedo move and validate them using a function.
-
-The features ment to be accessed by other developers, mainly, are placed in the root folder. And both package and file by feature design is used.
-
-## Bitboards ##
-I know there are different bitboard version, as in the order of the chess board squares. But this model aims at 0 == F1 and 63 == A8, from the white perspective. I do want the possibility to swap between bitboard layouts later, but as I'm worried about the performance hit of not having a precompiler, implementations for different bitboard layouts will most likely gain their own repositories (if this ever comes that far).
-
-## Contributing ##
-In your PR (Pull Request) explain what you have added/implemented or changed. If it affects performance, or you are asked to provide perfomance information, do a control test from the original branch and your new branch using perft & benchmarks. Any new feature implemented <b>must</b> have unit tests, and possibly benchmarks if required.
-
-## Requests and bugs ##
-I'm flexible when it comes to new ideas. I even want to try using a 32bit encoded move instead as the newer CPU's from AMD has way more L1 cache. But that's for a later consideration. Use the issue tracker for everything; questions, bugs, requests, concerns, etc.
