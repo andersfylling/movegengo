@@ -32,7 +32,7 @@ func TestMoveGenIterator(t *testing.T) {
 	for ; it.Good(); it.Next() {
 		// move := it.GetMove()
 		// mm := NewMove(move)
-		// println("move{" + itos(int(it.GetIndex())) + "}: " + u16tos(move) + "{" + mm.ToStr() + "}")
+		// println("move{" + itos(int(it.GetIndex())) + "}: " + u16tos(move) + "{" + mm.String() + "}")
 		it.GetIndex()
 		it.GetMove()
 	}

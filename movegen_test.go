@@ -117,11 +117,11 @@ func TestPawnPromotion(t *testing.T) {
 	movegen.generatePromotions(-8, 0x4000000000000000)
 	for it := movegen.CreateIterator(); it.Good(); it.Next() {
 		move := NewMove(it.GetMove())
-		if move.GetFlags() < 8 {
-			t.Errorf("PawnPromotion error: flag was below 8. Got %d", move.GetFlags())
+		if move.Flags() < 8 {
+			t.Errorf("PawnPromotion error: flag was below 8. Got %d", move.Flags())
 		}
-		if move.GetFlags() >= 12 {
-			t.Errorf("PawnPromotion error: flag was contained capture flag. Got %d", move.GetFlags())
+		if move.Flags() >= 12 {
+			t.Errorf("PawnPromotion error: flag was contained capture flag. Got %d", move.Flags())
 		}
 	}
 
@@ -130,8 +130,8 @@ func TestPawnPromotion(t *testing.T) {
 	movegen.generatePromotions(-7, 0x4000000000000000)
 	for it := movegen.CreateIterator(); it.Good(); it.Next() {
 		move := NewMove(it.GetMove())
-		if move.GetFlags() < 12 {
-			t.Errorf("PawnPromotion error: Did not contain capture flag (right). Got %d", move.GetFlags())
+		if move.Flags() < 12 {
+			t.Errorf("PawnPromotion error: Did not contain capture flag (right). Got %d", move.Flags())
 		}
 	}
 
@@ -140,8 +140,8 @@ func TestPawnPromotion(t *testing.T) {
 	movegen.generatePromotions(-9, 0x4000000000000000)
 	for it := movegen.CreateIterator(); it.Good(); it.Next() {
 		move := NewMove(it.GetMove())
-		if move.GetFlags() < 8 {
-			t.Errorf("PawnPromotion error: Did not contain capture flag (left). Got %d", move.GetFlags())
+		if move.Flags() < 8 {
+			t.Errorf("PawnPromotion error: Did not contain capture flag (left). Got %d", move.Flags())
 		}
 	}
 }

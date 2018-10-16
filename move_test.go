@@ -33,71 +33,71 @@ func TestToAndFrom(t *testing.T) {
 	m := NewMove(0)
 
 	m.SetFrom(8)
-	requireEqual(t, m.GetFrom(), 8)
-	requireEqual(t, m.GetTo(), 0)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 8)
+	requireEqual(t, m.To(), 0)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetFrom(8)
-	requireEqual(t, m.GetFrom(), 8)
-	requireEqual(t, m.GetTo(), 0)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 8)
+	requireEqual(t, m.To(), 0)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetTo(16)
-	requireEqual(t, m.GetFrom(), 8)
-	requireEqual(t, m.GetTo(), 16)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 8)
+	requireEqual(t, m.To(), 16)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetTo(0)
-	requireEqual(t, m.GetFrom(), 8)
-	requireEqual(t, m.GetTo(), 0)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 8)
+	requireEqual(t, m.To(), 0)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetTo(24)
-	requireEqual(t, m.GetFrom(), 8)
-	requireEqual(t, m.GetTo(), 24)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 8)
+	requireEqual(t, m.To(), 24)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetFrom(0)
-	requireEqual(t, m.GetFrom(), 0)
-	requireEqual(t, m.GetTo(), 24)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 0)
+	requireEqual(t, m.To(), 24)
+	requireEqual(t, m.Flags(), 0)
 
 	m.SetTo(3)
-	requireEqual(t, m.GetFrom(), 0)
-	requireEqual(t, m.GetTo(), 3)
-	requireEqual(t, m.GetFlags(), 0)
+	requireEqual(t, m.From(), 0)
+	requireEqual(t, m.To(), 3)
+	requireEqual(t, m.Flags(), 0)
 
 	// move using constructor
 	m2 := NewMoveDetail(8, 24, 0)
-	requireEqual(t, m2.GetFrom(), 8)
-	requireEqual(t, m2.GetTo(), 24)
-	requireEqual(t, m2.GetFlags(), 0)
+	requireEqual(t, m2.From(), 8)
+	requireEqual(t, m2.To(), 24)
+	requireEqual(t, m2.Flags(), 0)
 
 }
 
 func TestFlag(t *testing.T) {
 	//flags
 	m3 := NewMoveDetail(8, 24, 15)
-	requireEqual(t, m3.GetFrom(), 8)
-	requireEqual(t, m3.GetTo(), 24)
-	requireEqual(t, m3.GetFlags(), 15)
+	requireEqual(t, m3.From(), 8)
+	requireEqual(t, m3.To(), 24)
+	requireEqual(t, m3.Flags(), 15)
 
 	m3.SetFlags(7)
-	requireEqual(t, m3.GetFrom(), 8)
-	requireEqual(t, m3.GetTo(), 24)
-	requireEqual(t, m3.GetFlags(), 7)
+	requireEqual(t, m3.From(), 8)
+	requireEqual(t, m3.To(), 24)
+	requireEqual(t, m3.Flags(), 7)
 
 	m3.SetFlags(0)
-	requireEqual(t, m3.GetFrom(), 8)
-	requireEqual(t, m3.GetTo(), 24)
-	requireEqual(t, m3.GetFlags(), 0)
+	requireEqual(t, m3.From(), 8)
+	requireEqual(t, m3.To(), 24)
+	requireEqual(t, m3.Flags(), 0)
 
 	m3.SetFlags(7)
 	m3.SetFrom(4)
 	m3.SetTo(62)
-	requireEqual(t, m3.GetFrom(), 4)
-	requireEqual(t, m3.GetTo(), 62)
-	requireEqual(t, m3.GetFlags(), 7)
+	requireEqual(t, m3.From(), 4)
+	requireEqual(t, m3.To(), 62)
+	requireEqual(t, m3.Flags(), 7)
 }
 
 func TestComparison(t *testing.T) {
@@ -114,18 +114,18 @@ func TestComparison(t *testing.T) {
 	m3.SetFlags(7)
 	m3.SetFrom(4)
 	m3.SetTo(62)
-	requireEqual(t, m3.GetFrom(), 4)
-	requireEqual(t, m3.GetTo(), 62)
-	requireEqual(t, m3.GetFlags(), 7)
+	requireEqual(t, m3.From(), 4)
+	requireEqual(t, m3.To(), 62)
+	requireEqual(t, m3.Flags(), 7)
 
 	requireNotEqual(t, m2.GetMove(), m3.GetMove())
-	requireNotEqual(t, m2.GetButterflyIndex(), m3.GetButterflyIndex())
+	requireNotEqual(t, m2.ButterflyIndex(), m3.ButterflyIndex())
 
 	m2.SetMoveFromInstance(m3)
 	requireEqual(t, m2.GetMove(), m3.GetMove())
-	requireEqual(t, m2.GetFrom(), 4)
-	requireEqual(t, m2.GetTo(), 62)
-	requireEqual(t, m2.GetFlags(), 7)
+	requireEqual(t, m2.From(), 4)
+	requireEqual(t, m2.To(), 62)
+	requireEqual(t, m2.Flags(), 7)
 
 	m3.SetMove(move.GetMove())
 	requireEqual(t, m3.GetMove(), move.GetMove())
@@ -144,7 +144,7 @@ func TestAttacks(t *testing.T) {
 	var i uint16
 	for ; i <= 15; i++ {
 		move.SetFlags(i)
-		requireEqual(t, move.GetFlags(), i)
+		requireEqual(t, move.Flags(), i)
 	}
 
 	i = 0

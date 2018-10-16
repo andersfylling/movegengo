@@ -96,12 +96,10 @@ func (mg *MoveGen) GeneratePawnMoves() uint64 {
 	return attacksLeft | attacksRight
 }
 
-/**
- * Move all the pawns forward once and do a promotion check.
- * Promotions are handled, and removed from the resulting bitboard.
- *
- * @return A bitboard for all the pawns that moved forward, without being promoted.
- */
+// generatePawnSinglePush Move all the pawns forward once and do a promotion check.
+// Promotions are handled, and removed from the resulting bitboard.
+//
+// return A bitboard for all the pawns that moved forward, without being promoted.
 func (mg *MoveGen) generatePawnSinglePush() uint64 {
 	pawns := mg.state.pieces[mg.colour*6]
 	var to uint64
@@ -135,14 +133,13 @@ func (mg *MoveGen) generatePawnSinglePush() uint64 {
 	return cache
 } // end pawn generation
 
-/**
- * Generate legal double push pawn moves.
- * This is a continuation on single pawn push, so the argument must be
- * the pawns that has already moved once for accurate results.
- *
- * @param pawns All pawn positions after single legal push (move). eg. 16711680ull
- * @return All the new pawn positions
- */
+// generatePawnDoublePush Generate legal double push pawn moves.
+// This is a continuation on single pawn push, so the argument must be
+// the pawns that has already moved once for accurate results.
+//
+// param `pawns` All pawn positions after single legal push (move). eg. 16711680ull
+//
+// return All the new pawn positions
 func (mg *MoveGen) generatePawnDoublePush(pawns uint64) uint64 {
 	var to uint64
 
@@ -171,13 +168,11 @@ func (mg *MoveGen) generatePawnDoublePush(pawns uint64) uint64 {
 	return cache
 }
 
-/**
- * Generate all pawn attacks on the left side.
- * Promotions are handled as after movement.
- *
- * @param pawns uint64 over all pawns.
- * @return uint64 with positions reached.
- */
+// generatePawnLeftAttack Generate all pawn attacks on the left side. Promotions are handled as after movement.
+//
+// param pawns uint64 over all pawns
+//
+// return uint64 with positions reached
 func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
 	area := uint64(0x7f7f7f7f7f7f7f7f)
 	var attacks uint64
@@ -208,13 +203,11 @@ func (mg *MoveGen) generatePawnLeftAttack(pawns uint64) uint64 {
 	return cache
 }
 
-/**
- * Generate all pawn attacks on the right side.
- * Promotions are handled as after movement.
- *
- * @param pawns uint64 over all pawns.
- * @return uint64 with positions reached.
- */
+// generatePawnRightAttack Generate all pawn attacks on the right side. Promotions are handled as after movement.
+//
+// param pawns uint64 over all pawns
+//
+// return uint64 with positions reached.
 func (mg *MoveGen) generatePawnRightAttack(pawns uint64) uint64 {
 	area := uint64(0xfefefefefefe00)
 	var attacks uint64 // TODO: en passant
@@ -245,13 +238,9 @@ func (mg *MoveGen) generatePawnRightAttack(pawns uint64) uint64 {
 	return cache
 }
 
-/**
- * Generate promotion pieces.
- *
- * @tparam FROM the bitboard offset in int8, diff between from and to position index.
- * @param pawns
- * @return
- */
+// generatePromotions Generate promotion pieces.
+//
+// param FROM the bitboard offset in int8, diff between from and to position index.
 func (mg *MoveGen) generatePromotions(from int, pawns uint64) uint64 {
 	promotions := pawns & 0xff000000000000ff
 
@@ -296,6 +285,7 @@ func (mg *MoveGen) generateKnightBoard(index int) uint64 {
 	return KnightMoves[index]
 }
 
+// GenerateKnightMoves ...
 func (mg *MoveGen) GenerateKnightMoves() uint64 {
 	knights := mg.state.pieces[mg.colour*6+2]
 	attacks := uint64(0)

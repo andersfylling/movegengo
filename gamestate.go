@@ -45,12 +45,18 @@ func NewGameState() *GameState {
 	}
 }
 
+// String returns the FEN string for the board
+func (state *GameState) String() string {
+	return ""
+}
+
+// BasicOutput uses letters to indicate pieces
 func (state *GameState) BasicOutput() string {
 	//pieces := []string{"-", "q", "k", ""}
 	return ""
 }
 
-// Print represent the content as a chess board
+// PrettyOutput uses unicodes to indicate pieces
 func (state *GameState) PrettyOutput() string {
 	//pieces := []string{" ", "♔", "♕", "♖", "♗", "♘", "♙", "♚", "♛", "♜", "♝", "♞", "♟"}
 
