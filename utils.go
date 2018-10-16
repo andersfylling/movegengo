@@ -1,4 +1,4 @@
-package cmgg
+package movegengo
 
 import "math/bits"
 

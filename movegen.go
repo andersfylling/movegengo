@@ -1,4 +1,4 @@
-package cmgg
+package movegengo
 
 // MoveGen chess move generator
 type MoveGen struct {

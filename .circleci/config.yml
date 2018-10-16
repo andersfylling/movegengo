@@ -1,0 +1,35 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  build:
+    environment:
+      CC_TEST_REPORTER_ID: 3e21bbcb355210a5d476b6eb806ccf5df6358db22b1c18ae048bb7c69ae9d3d7
+    docker:
+    - image: circleci/golang:1.11
+    working_directory: /home/circleci/project/
+    steps:
+    - checkout
+    - run: go get -v -t -d ./...
+    - run:
+        name: "Enforce Go Formatted Code"
+        command: "! go fmt ./... 2>&1 | read"
+    - run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+    - run: bash <(curl -s https://codecov.io/bash)
+    - run:
+        name: Setup Code Climate test-reporter
+        command: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+    - run:
+        name: Run tests
+        command: |
+          for pkg in $(go list ./...); do
+            go test -coverprofile=$(echo $pkg | tr / -).cover $pkg
+          done
+          echo "mode: set" > c.out
+          grep -h -v "^mode:" ./*.cover >> c.out
+          rm -f *.cover
+          ./cc-test-reporter after-build --debug --exit-code $? --prefix github.com/chessmodule/movegengo/

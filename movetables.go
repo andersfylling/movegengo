@@ -1,4 +1,4 @@
-package cmgg
+package movegengo
 
 var KnightMoves = [64]uint64{
 	0x20400, 0x50800, 0xa1100, 0x142200, 0x284400, 0x508800, 0xa01000, 0x402000,

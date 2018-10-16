@@ -1,4 +1,12 @@
-package cmgg
+package movegengo
+
+// Iterator has the bare minimum to implement an iterator pattern
+type Iterator interface {
+	Begin() uint
+	End() uint
+	Next() uint
+	Good() bool
+}
 
 // MoveGenIterator chess move generator
 type MoveGenIterator struct {

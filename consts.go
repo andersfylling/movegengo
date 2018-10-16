@@ -1,4 +1,4 @@
-package cmgg
+package movegengo
 
 // MaxMoves per round
 const MaxMoves = 256
